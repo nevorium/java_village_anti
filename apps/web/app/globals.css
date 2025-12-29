@@ -1,0 +1,294 @@
+/* Java Village - Global Styles */
+
+/* CSS Variables - Design Tokens */
+:root {
+  /* Colors - Earthy farming palette */
+  --color-primary: #4a7c59;
+  --color-primary-dark: #2d5a3d;
+  --color-primary-light: #6b9b7a;
+  
+  --color-secondary: #c4a35a;
+  --color-secondary-dark: #a68939;
+  --color-secondary-light: #d9c08c;
+  
+  --color-accent: #e07a5f;
+  --color-accent-dark: #c45a3f;
+  --color-accent-light: #f09a7f;
+  
+  /* UI Colors */
+  --color-background: #1a1a2e;
+  --color-background-light: #25253d;
+  --color-surface: #2a2a4a;
+  --color-surface-light: #3a3a5a;
+  
+  --color-text: #f0f0f0;
+  --color-text-muted: #a0a0b0;
+  --color-text-dark: #1a1a2e;
+  
+  /* Game UI Colors */
+  --color-health: #e74c3c;
+  --color-energy: #f39c12;
+  --color-experience: #9b59b6;
+  --color-money: #f1c40f;
+  
+  /* Spacing */
+  --spacing-xs: 4px;
+  --spacing-sm: 8px;
+  --spacing-md: 16px;
+  --spacing-lg: 24px;
+  --spacing-xl: 32px;
+  --spacing-2xl: 48px;
+  
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-full: 9999px;
+  
+  /* Shadows */
+  --shadow-sm: 0 2px 4px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 4px 8px rgba(0, 0, 0, 0.4);
+  --shadow-lg: 0 8px 16px rgba(0, 0, 0, 0.5);
+  
+  /* Fonts */
+  --font-primary: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-game: 'Press Start 2P', monospace;
+  
+  /* Transitions */
+  --transition-fast: 150ms ease;
+  --transition-normal: 250ms ease;
+  --transition-slow: 400ms ease;
+}
+
+/* Reset & Base Styles */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-background);
+  color: var(--color-text);
+  line-height: 1.5;
+  overflow: hidden;
+}
+
+/* Prevent text selection during gameplay */
+.game-container {
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+/* Canvas container */
+.canvas-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+}
+
+/* UI Overlay */
+.ui-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+}
+
+.ui-overlay > * {
+  pointer-events: auto;
+}
+
+/* Game UI Elements */
+.game-panel {
+  background: linear-gradient(
+    135deg,
+    rgba(42, 42, 74, 0.95) 0%,
+    rgba(26, 26, 46, 0.95) 100%
+  );
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-lg);
+  backdrop-filter: blur(10px);
+}
+
+.game-button {
+  background: linear-gradient(
+    180deg,
+    var(--color-primary) 0%,
+    var(--color-primary-dark) 100%
+  );
+  border: 2px solid var(--color-primary-light);
+  border-radius: var(--radius-md);
+  color: var(--color-text);
+  padding: var(--spacing-sm) var(--spacing-md);
+  font-weight: 600;
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.game-button:hover {
+  background: linear-gradient(
+    180deg,
+    var(--color-primary-light) 0%,
+    var(--color-primary) 100%
+  );
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+}
+
+.game-button:active {
+  transform: translateY(0);
+}
+
+/* Inventory Grid */
+.inventory-grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: var(--spacing-xs);
+}
+
+.item-slot {
+  aspect-ratio: 1;
+  background-color: var(--color-surface);
+  border: 2px solid var(--color-surface-light);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: all var(--transition-fast);
+}
+
+.item-slot:hover {
+  border-color: var(--color-primary);
+  background-color: var(--color-surface-light);
+}
+
+.item-slot.selected {
+  border-color: var(--color-secondary);
+  box-shadow: 0 0 10px var(--color-secondary);
+}
+
+/* Hotbar */
+.hotbar {
+  position: fixed;
+  bottom: var(--spacing-lg);
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: var(--spacing-xs);
+  padding: var(--spacing-sm);
+  background: rgba(26, 26, 46, 0.9);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(10px);
+}
+
+/* HUD Elements */
+.hud-container {
+  position: fixed;
+  top: var(--spacing-md);
+  left: var(--spacing-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.hud-bar {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-sm);
+  background: rgba(26, 26, 46, 0.85);
+  border-radius: var(--radius-md);
+  backdrop-filter: blur(5px);
+}
+
+.hud-bar-fill {
+  height: 12px;
+  border-radius: var(--radius-sm);
+  transition: width var(--transition-normal);
+}
+
+/* Chat */
+.chat-container {
+  position: fixed;
+  bottom: 100px;
+  left: var(--spacing-md);
+  width: 350px;
+  max-height: 300px;
+}
+
+/* Loading Screen */
+.loading-screen {
+  position: fixed;
+  inset: 0;
+  background: var(--color-background);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  z-index: 100;
+}
+
+.loading-spinner {
+  width: 60px;
+  height: 60px;
+  border: 4px solid var(--color-surface-light);
+  border-top-color: var(--color-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  :root {
+    font-size: 14px;
+  }
+  
+  .inventory-grid {
+    grid-template-columns: repeat(5, 1fr);
+  }
+  
+  .chat-container {
+    width: calc(100vw - var(--spacing-lg) * 2);
+  }
+}
+
+/* Touch-friendly for mobile */
+@media (hover: none) and (pointer: coarse) {
+  .game-button {
+    padding: var(--spacing-md) var(--spacing-lg);
+    min-height: 48px;
+  }
+  
+  .item-slot {
+    min-width: 48px;
+    min-height: 48px;
+  }
+}
