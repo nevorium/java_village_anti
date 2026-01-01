@@ -1,0 +1,171 @@
+.overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.6);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 2000;
+    backdrop-filter: blur(4px);
+}
+
+.panel {
+    background: linear-gradient(135deg,
+            rgba(26, 26, 46, 0.98) 0%,
+            rgba(42, 42, 74, 0.95) 100%);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    width: 90%;
+    max-width: 450px;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: var(--spacing-md) var(--spacing-lg);
+    border-bottom: 1px solid var(--color-surface-light);
+}
+
+.title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0;
+}
+
+.closeButton {
+    background: none;
+    border: none;
+    color: var(--color-text-muted);
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.questList {
+    flex: 1;
+    overflow-y: auto;
+    padding: var(--spacing-md);
+    display: flex;
+    flex-direction: column;
+    gap: var(--spacing-sm);
+}
+
+.questCard {
+    background: var(--color-surface);
+    border: 1px solid var(--color-surface-light);
+    border-radius: var(--radius-md);
+    padding: var(--spacing-md);
+    transition: all var(--transition-fast);
+}
+
+.questCard.completed {
+    border-color: var(--color-primary);
+    background: rgba(74, 124, 89, 0.1);
+}
+
+.questCard.claimed {
+    opacity: 0.6;
+}
+
+.questInfo {
+    margin-bottom: var(--spacing-sm);
+}
+
+.questTitle {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--color-text);
+    margin: 0 0 4px;
+}
+
+.questDesc {
+    font-size: 12px;
+    color: var(--color-text-muted);
+    margin: 0;
+}
+
+.questProgress {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-bottom: var(--spacing-sm);
+}
+
+.progressBar {
+    flex: 1;
+    height: 8px;
+    background: var(--color-background);
+    border-radius: var(--radius-full);
+    overflow: hidden;
+}
+
+.progressFill {
+    height: 100%;
+    background: linear-gradient(90deg,
+            var(--color-primary-dark) 0%,
+            var(--color-primary) 100%);
+    border-radius: var(--radius-full);
+    transition: width var(--transition-normal);
+}
+
+.progressText {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    min-width: 40px;
+    text-align: right;
+}
+
+.questReward {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+}
+
+.rewardLabel {
+    font-size: 11px;
+    color: var(--color-text-muted);
+}
+
+.rewardValue {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--color-secondary);
+}
+
+.claimButton {
+    margin-left: auto;
+    padding: 4px 12px;
+    background: var(--color-secondary);
+    border: none;
+    border-radius: var(--radius-sm);
+    color: var(--color-text-dark);
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.claimButton:hover {
+    background: var(--color-secondary-light);
+}
+
+.claimedBadge {
+    margin-left: auto;
+    font-size: 11px;
+    color: var(--color-primary-light);
+}
+
+.footer {
+    padding: var(--spacing-sm) var(--spacing-lg);
+    border-top: 1px solid var(--color-surface-light);
+    text-align: center;
+}
+
+.resetNote {
+    font-size: 11px;
+    color: var(--color-text-muted);
+    margin: 0;
+}

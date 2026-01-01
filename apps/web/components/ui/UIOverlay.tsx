@@ -1,60 +1,52 @@
 'use client';
 
+import { useGameStore } from '@/stores/gameStore';
+import { useInventoryStore } from '@/stores/inventoryStore';
+import { formatTime, formatDate } from '@java-village/game-logic';
+import Hotbar from './inventory/Hotbar';
+import InventoryPanel from './inventory/InventoryPanel';
+import styles from './UIOverlay.module.css';
+
 export default function UIOverlay() {
+    const gameTime = useGameStore((state) => state.gameTime);
+    const money = useGameStore((state) => state.money);
+    const toggleInventory = useInventoryStore((state) => state.toggleInventory);
+
     return (
-        <div className="ui-overlay">
+        <div className={styles.overlay}>
             {/* HUD - Top Left */}
-            <div className="hud-container">
-                <div className="hud-bar">
-                    <span style={{ fontSize: '14px' }}>☀️</span>
-                    <span style={{ color: 'var(--color-text-muted)', fontSize: '12px' }}>
-                        Day 1 - 6:00 AM
-                    </span>
+            <div className={styles.hudContainer}>
+                {/* Time Display */}
+                <div className={styles.hudBar}>
+                    <span className={styles.icon}>☀️</span>
+                    <div className={styles.timeInfo}>
+                        <span className={styles.time}>{formatTime(gameTime)}</span>
+                        <span className={styles.date}>{formatDate(gameTime)}</span>
+                    </div>
                 </div>
-                <div className="hud-bar">
-                    <span style={{ fontSize: '14px' }}>💰</span>
-                    <span style={{ color: 'var(--color-money)', fontSize: '12px' }}>
-                        500 G
-                    </span>
+
+                {/* Money Display */}
+                <div className={styles.hudBar}>
+                    <span className={styles.icon}>💰</span>
+                    <span className={styles.money}>{money.toLocaleString()} G</span>
                 </div>
+            </div>
+
+            {/* Top Right - Game Title & Quick Actions */}
+            <div className={styles.topRight}>
+                <button className={styles.iconButton} onClick={toggleInventory} title="Inventory (I)">
+                    🎒
+                </button>
+                <button className={styles.iconButton} title="Settings">
+                    ⚙️
+                </button>
             </div>
 
             {/* Hotbar - Bottom Center */}
-            <div className="hotbar">
-                {Array.from({ length: 9 }).map((_, i) => (
-                    <div
-                        key={i}
-                        className={`item-slot ${i === 0 ? 'selected' : ''}`}
-                        style={{ width: '48px', height: '48px' }}
-                    >
-                        {i === 0 && <span style={{ fontSize: '20px' }}>🪓</span>}
-                        {i === 1 && <span style={{ fontSize: '20px' }}>⛏️</span>}
-                        {i === 2 && <span style={{ fontSize: '20px' }}>🪣</span>}
-                    </div>
-                ))}
-            </div>
+            <Hotbar />
 
-            {/* Game Title (temporary) */}
-            <div
-                style={{
-                    position: 'fixed',
-                    top: 'var(--spacing-md)',
-                    right: 'var(--spacing-md)',
-                    padding: 'var(--spacing-sm) var(--spacing-md)',
-                    background: 'rgba(26, 26, 46, 0.85)',
-                    borderRadius: 'var(--radius-md)',
-                    backdropFilter: 'blur(5px)',
-                }}
-            >
-                <span style={{
-                    color: 'var(--color-primary-light)',
-                    fontSize: '12px',
-                    fontWeight: 600,
-                    letterSpacing: '1px'
-                }}>
-                    JAVA VILLAGE
-                </span>
-            </div>
+            {/* Inventory Panel (modal) */}
+            <InventoryPanel />
         </div>
     );
 }

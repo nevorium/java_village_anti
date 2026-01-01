@@ -1,0 +1,86 @@
+.hotbar {
+    position: fixed;
+    bottom: var(--spacing-lg);
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: var(--spacing-xs);
+    padding: var(--spacing-sm);
+    background: linear-gradient(135deg,
+            rgba(26, 26, 46, 0.95) 0%,
+            rgba(42, 42, 74, 0.9) 100%);
+    border: 2px solid var(--color-primary);
+    border-radius: var(--radius-lg);
+    backdrop-filter: blur(10px);
+    box-shadow: var(--shadow-lg);
+}
+
+.slot {
+    position: relative;
+    width: 52px;
+    height: 52px;
+    background: var(--color-surface);
+    border: 2px solid var(--color-surface-light);
+    border-radius: var(--radius-sm);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--transition-fast);
+}
+
+.slot:hover {
+    border-color: var(--color-primary);
+    background: var(--color-surface-light);
+}
+
+.slot.selected {
+    border-color: var(--color-secondary);
+    box-shadow: 0 0 12px var(--color-secondary),
+        inset 0 0 8px rgba(196, 163, 90, 0.2);
+}
+
+.icon {
+    font-size: 28px;
+    line-height: 1;
+    user-select: none;
+}
+
+.quantity {
+    position: absolute;
+    bottom: 2px;
+    right: 4px;
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--color-text);
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+}
+
+.shortcut {
+    position: absolute;
+    top: 2px;
+    left: 4px;
+    font-size: 9px;
+    font-weight: 600;
+    color: var(--color-text-muted);
+    opacity: 0.6;
+}
+
+/* Mobile adjustments */
+@media (max-width: 768px) {
+    .hotbar {
+        bottom: 80px;
+        /* Above mobile controls */
+        padding: var(--spacing-xs);
+        gap: 2px;
+    }
+
+    .slot {
+        width: 44px;
+        height: 44px;
+    }
+
+    .icon {
+        font-size: 22px;
+    }
+}
